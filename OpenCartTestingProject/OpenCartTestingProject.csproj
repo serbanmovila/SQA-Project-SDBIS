@@ -61,10 +61,17 @@
   <ItemGroup>
     <Compile Include="Controls\MenuItemControl.cs" />
     <Compile Include="AddProductToCartTest.cs" />
+    <Compile Include="PageObjects\HomePage\HomePage.cs" />
+    <Compile Include="PageObjects\ProductListPage\ProductListPage.cs" />
+    <Compile Include="PageObjects\ShoppingCartPage\InputData\ShoppingCartBO.cs" />
+    <Compile Include="PageObjects\ShoppingCartPage\ShoppingCartPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PageObjects\HomePage\InputData\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
