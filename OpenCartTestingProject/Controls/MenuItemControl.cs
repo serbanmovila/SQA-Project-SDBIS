@@ -10,6 +10,8 @@ namespace OpenCartTestingProject.Controls
 {
     class MenuItemControl
     {
+        //clasa pentru elementele din bara de menu
+
         public IWebDriver driver;
         private WebDriverWait wait;
 
