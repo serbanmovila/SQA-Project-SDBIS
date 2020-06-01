@@ -28,8 +28,6 @@ namespace OpenCartTestingProject.Controls
 
         public ShoppingCartPage NavigateToShoppingCart(IWebDriver driver)
         {
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementIsVisible(shoppingCart));
             BtnShoppingCart.Click();
             return new ShoppingCartPage(driver);
         }

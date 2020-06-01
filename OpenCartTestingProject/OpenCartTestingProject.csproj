@@ -66,6 +66,8 @@
     <Compile Include="PageObjects\ShoppingCartPage\InputData\ShoppingCartBO.cs" />
     <Compile Include="PageObjects\ShoppingCartPage\ShoppingCartPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ChangeQuantityOfOrderedProductTest.cs" />
+    <Compile Include="RemoveAnOrderedProductTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

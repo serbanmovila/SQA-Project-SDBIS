@@ -11,6 +11,7 @@ namespace OpenCartTestingProject.PageObjects.ShoppingCartPage.InputData
     {
         public string ProductName { get; set; } = "Samsung Galaxy Tab 10.1";
         public string Quantity { get; set; } = "5";
+        public string WrongQuantity { get; set; } = "-5";
 
     }
 }

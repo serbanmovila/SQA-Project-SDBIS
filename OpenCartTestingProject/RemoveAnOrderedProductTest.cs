@@ -11,8 +11,9 @@ using OpenQA.Selenium.Chrome;
 namespace OpenCartTestingProject
 {
     [TestClass]
-    public class AddProductToCartTest
-    {  
+    public class RemoveAnOrderedProductTest
+    {
+        private ChromeOptions options;
         private IWebDriver driver;
         private MenuItemControl menuItem;
         private HomePage homePage;
@@ -20,27 +21,28 @@ namespace OpenCartTestingProject
         private ShoppingCartPage shoppingCartPage;
         private ShoppingCartBO shoppingCartBO = new ShoppingCartBO();
 
-
         [TestInitialize]
         public void TestInitialize()
         {
-            driver = new ChromeDriver();
+            options = new ChromeOptions();
+            options.AddArgument("--ignore-ssl-errors=yes");
+            options.AddArgument("--ignore-certificate-errors");
+            driver = new ChromeDriver(options);
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("http://opencart.abstracta.us/");
+            menuItem = new MenuItemControl(driver);
             homePage = new HomePage(driver);
             productListPage = homePage.NavigateToTabletsProductList(driver);
-            menuItem = new MenuItemControl(driver);
-
+            productListPage.AddToCartFirstProduct(shoppingCartBO);
+            shoppingCartPage = menuItem.NavigateToShoppingCart(driver);
         }
 
-
         [TestMethod]
-        public void AddProductToCart()
+        public void RemoveSuccessfully()
         {
-            productListPage.AddToCartFirstProduct(shoppingCartBO);
-
-            String expectedResult = "Success: You have added " + shoppingCartBO.ProductName + " to your shopping cart!\r\n×";
-            Assert.AreEqual(expectedResult, productListPage.SuccessfullyAddedText);
+            shoppingCartPage.UpdateWrongQuantity(shoppingCartBO);
+            String expectedResult = "Your shopping cart is empty!";
+            Assert.AreEqual(expectedResult, shoppingCartPage.EmptyCartText);
         }
 
         [TestCleanup]

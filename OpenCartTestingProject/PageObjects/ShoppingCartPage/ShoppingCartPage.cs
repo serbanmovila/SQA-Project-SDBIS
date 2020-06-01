@@ -6,16 +6,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
+
 
 namespace OpenCartTestingProject.PageObjects.ShoppingCartPage
 {
     class ShoppingCartPage
     {
         private IWebDriver driver;
+        private WebDriverWait wait;
 
         public ShoppingCartPage(IWebDriver browser)
         {
             driver = browser;
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            wait.Until(ExpectedConditions.ElementIsVisible(quantity));
         }
 
         private By cartProducts = By.CssSelector("form tbody tr");
@@ -26,7 +31,7 @@ namespace OpenCartTestingProject.PageObjects.ShoppingCartPage
            .FirstOrDefault(element => element.Text.Contains(shoppingCartBO.ProductName))
            .FindElement(productName);
 
-        private By quantity = By.CssSelector("input[name='quantity[96435]']");
+        private By quantity = By.CssSelector("tbody input");
         private IWebElement TxtQuantity(ShoppingCartBO shoppingCartBO) => LstCartProducts
             .FirstOrDefault(element => element.Text.Contains(shoppingCartBO.ProductName))
             .FindElement(quantity);
@@ -42,23 +47,58 @@ namespace OpenCartTestingProject.PageObjects.ShoppingCartPage
             .FindElement(remove);
 
         private By unitPrice = By.CssSelector("form tbody tr td:nth-child(5)");
-        private IWebElement TxtPriceUnit(ShoppingCartBO shoppingCartBO) => LstCartProducts
+        private IWebElement LblPriceUnit(ShoppingCartBO shoppingCartBO) => LstCartProducts
             .FirstOrDefault(element => element.Text.Contains(shoppingCartBO.ProductName))
             .FindElement(unitPrice);
 
         private By total = By.CssSelector("form tbody tr td:nth-child(6)");
-        private IWebElement TxtTotal(ShoppingCartBO shoppingCartBO) => LstCartProducts
+        private IWebElement LblTotal(ShoppingCartBO shoppingCartBO) => LstCartProducts
             .FirstOrDefault(element => element.Text.Contains(shoppingCartBO.ProductName))
             .FindElement(total);
 
         private By emptyCart = By.CssSelector("div[id=content] p");
         private IWebElement LblEmptyCart => driver.FindElement(emptyCart);
-        private string EmptyCartText => LblEmptyCart.Text;
+        public string EmptyCartText => LblEmptyCart.Text;
 
         private By successfullyUpdated = By.CssSelector("div.alert-success");
         private IWebElement LblSuccessfullyUpdated => driver.FindElement(successfullyUpdated);
-        private string SuccessfullyUpdatedText => LblSuccessfullyUpdated.Text;
+        public string SuccessfullyUpdatedText => LblSuccessfullyUpdated.Text;
         
+        public void UpdateQuantity(ShoppingCartBO shoppingCartBO)
+        {
+            TxtQuantity(shoppingCartBO).Clear();
+            TxtQuantity(shoppingCartBO).SendKeys(shoppingCartBO.Quantity);
+            BtnUpdate(shoppingCartBO).Click();
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.ElementIsVisible(successfullyUpdated));
+        }
 
+        public void UpdateWrongQuantity(ShoppingCartBO shoppingCartBO)
+        {
+            TxtQuantity(shoppingCartBO).Clear();
+            TxtQuantity(shoppingCartBO).SendKeys(shoppingCartBO.WrongQuantity);
+            BtnUpdate(shoppingCartBO).Click();
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.ElementIsVisible(emptyCart));
+        }
+
+        public void RemoveProduct(ShoppingCartBO shoppingCartBO)
+        {
+            BtnRemove(shoppingCartBO).Click();
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.ElementIsVisible(emptyCart));
+        }
+
+        public Double CalculateLineTotal(ShoppingCartBO shoppingCartBO)
+        {
+            var priceUnit = Convert.ToDouble(LblPriceUnit(shoppingCartBO).Text.Remove(0, 1));
+            var qty = Convert.ToDouble(TxtQuantity(shoppingCartBO).GetAttribute("value"));
+            return priceUnit*qty;
+        }
+
+        public Double GetTotal(ShoppingCartBO shoppingCartBO)
+        {
+            return Convert.ToDouble(LblTotal(shoppingCartBO).Text.Remove(0, 1));
+        }
     }
 }
