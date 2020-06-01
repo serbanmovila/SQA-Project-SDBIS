@@ -24,7 +24,7 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
             wait.Until(ExpectedConditions.ElementIsVisible(addToCart));
         }
 
-        private By products = By.CssSelector("div[id='content']>div:nth-child(2)>div");
+        private By products = By.CssSelector("div[id='content']>div:nth-child(3)>div");
         private IList<IWebElement> LstProducts => driver.FindElements(products);
 
         private By addToCart = By.CssSelector("div.button-group>button:first-child");
@@ -32,9 +32,14 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
             .FirstOrDefault(element => element.Text.Contains(shoppingCartBO.ProductName))
             .FindElement(addToCart);
 
+        private By successfullyAdded = By.CssSelector("div.alert-success");
+        private IWebElement LblSuccessfullyAdded => driver.FindElement(successfullyAdded);
+        public string SuccessfullyAddedText => LblSuccessfullyAdded.Text;
+
         public void AddToCartFirstProduct(ShoppingCartBO shoppingCartBO)
         {
             BtnAddToCart(shoppingCartBO).Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(successfullyAdded));
         }
     }
 }

@@ -21,6 +21,7 @@ namespace OpenCartTestingProject
         private ShoppingCartPage shoppingCartPage;
         private ShoppingCartBO shoppingCartBO = new ShoppingCartBO();
 
+
         [TestInitialize]
         public void TestInitialize()
         {
@@ -38,7 +39,15 @@ namespace OpenCartTestingProject
         public void AddProductToCart()
         {
             productListPage.AddToCartFirstProduct(shoppingCartBO);
-            shoppingCartPage = menuItem.NavigateToShoppingCart(driver);
+
+            String expectedResult = "Success: You have added " + shoppingCartBO.ProductName + " to your shopping cart!\r\n×";
+            Assert.AreEqual(expectedResult, productListPage.SuccessfullyAddedText);
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            driver.Quit();
         }
     }
 }
