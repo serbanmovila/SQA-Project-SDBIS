@@ -1,4 +1,5 @@
-﻿using OpenCartTestingProject.PageObjects.ShoppingCartPage.InputData;
+﻿using OpenCartTestingProject.PageObjects.ProductPage;
+using OpenCartTestingProject.PageObjects.ShoppingCartPage.InputData;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -24,7 +25,7 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
             wait.Until(ExpectedConditions.ElementIsVisible(addToCart));
         }
 
-        private By products = By.CssSelector("div[id='content']>div:nth-child(2)>div");
+        private By products = By.CssSelector("div[id='content']>div:nth-child(3)>div");
         private IList<IWebElement> LstProducts => driver.FindElements(products);
 
         private By addToCart = By.CssSelector("div.button-group>button:first-child");
@@ -32,9 +33,16 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
             .FirstOrDefault(element => element.Text.Contains(shoppingCartBO.ProductName))
             .FindElement(addToCart);
 
+        private By openProductPage = By.CssSelector("div.caption>h4>a");
+        private IWebElement BtnOpenProductPage() => driver.FindElement(openProductPage);
+
         public void AddToCartFirstProduct(ShoppingCartBO shoppingCartBO)
         {
             BtnAddToCart(shoppingCartBO).Click();
+        }
+        public void OpenProductPage()
+        { 
+            BtnOpenProductPage().Click();
         }
     }
 }

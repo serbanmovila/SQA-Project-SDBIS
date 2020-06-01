@@ -24,6 +24,5 @@ namespace OpenCartTestingProject.PageObjects.HomePage
         {
             BtnTablets.Click();
             return new ProductListPage.ProductListPage(driver);
-        }
-    }
+        }    }
 }
