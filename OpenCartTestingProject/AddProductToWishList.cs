@@ -1,25 +1,25 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenCartTestingProject.Controls;
 using OpenCartTestingProject.PageObjects.HomePage;
 using OpenCartTestingProject.PageObjects.ProductListPage;
-using OpenCartTestingProject.PageObjects.ShoppingCartPage;
-using OpenCartTestingProject.PageObjects.ShoppingCartPage.InputData;
+using OpenCartTestingProject.PageObjects.ProductPage;
+using OpenCartTestingProject.PageObjects.ProductPage.InputData;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace OpenCartTestingProject
 {
     [TestClass]
-    public class AddProductToCartTest
-    {  
+    public class AddProductToWishList
+    {
+
         private IWebDriver driver;
-        private MenuItemControl menuItem;
+
         private HomePage homePage;
         private ProductListPage productListPage;
-        private ShoppingCartPage shoppingCartPage;
-        private ShoppingCartBO shoppingCartBO = new ShoppingCartBO();
-
+        private ProductPage productPage;
 
         [TestInitialize]
         public void TestInitialize()
@@ -29,17 +29,15 @@ namespace OpenCartTestingProject
             driver.Navigate().GoToUrl("http://opencart.abstracta.us/");
             homePage = new HomePage(driver);
             productListPage = homePage.NavigateToTabletsProductList(driver);
-            menuItem = new MenuItemControl(driver);
+            productPage = productListPage.NavigateToProductPage(driver);
         }
 
-
         [TestMethod]
-        public void AddProductToCart()
-        {
-            productListPage.AddToCartFirstProduct(shoppingCartBO);
-
-            String expectedResult = "Success: You have added " + shoppingCartBO.ProductName + " to your shopping cart!\r\n×";
-            Assert.AreEqual(expectedResult, productListPage.SuccessfullyAddedText);
+        public void AddToWishList()
+        {            
+            productPage.AddToWishList();
+            String expectedResult = "Wish List (1)";
+            Assert.AreEqual(expectedResult, productPage.SuccessfullyAddToWishList);
         }
 
         [TestCleanup]

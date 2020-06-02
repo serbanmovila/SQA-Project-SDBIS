@@ -43,5 +43,6 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
             wait.Until(ExpectedConditions.ElementIsVisible(successfullyAdded));
             Thread.Sleep(1000);
         }
+
     }
 }
