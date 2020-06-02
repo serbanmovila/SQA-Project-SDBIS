@@ -41,7 +41,7 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
         {
             BtnAddToCart(shoppingCartBO).Click();
             wait.Until(ExpectedConditions.ElementIsVisible(successfullyAdded));
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
         }
     }
 }

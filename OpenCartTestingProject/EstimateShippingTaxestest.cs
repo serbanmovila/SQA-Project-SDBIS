@@ -11,7 +11,7 @@ using OpenQA.Selenium.Chrome;
 namespace OpenCartTestingProject
 {
     [TestClass]
-    public class ChangeQuantityOfOrderedProductTest
+    public class EstimateShippingTaxesTest
     {
         private ChromeOptions options;
         private IWebDriver driver;
@@ -35,26 +35,30 @@ namespace OpenCartTestingProject
             productListPage = homePage.NavigateToTabletsProductList(driver);
             productListPage.AddToCartFirstProduct(shoppingCartBO);
             shoppingCartPage = menuItem.NavigateToShoppingCart(driver);
-
         }
 
         [TestMethod]
-        public void ChangeQuantity_CorrectValue()
+        public void EstimateTaxes_Successful()
         {
-            shoppingCartPage.UpdateQuantity(shoppingCartBO);
-            String expectedResult = "Success: You have modified your shopping cart!\r\n×";
+            shoppingCartPage.EstimateShippingAndTaxes(shoppingCartBO);
+            String expectedResult = "Success: Your shipping estimate has been applied!\r\n×";
             Assert.AreEqual(expectedResult, shoppingCartPage.SuccessfullyUpdatedText);
-            Double expectedTotal = Math.Round(shoppingCartPage.CalculateLineTotal(shoppingCartBO),0);
-            Double actualTotal = Math.Round(shoppingCartPage.GetTotal(shoppingCartBO),0);
-            Assert.AreEqual(expectedTotal, actualTotal);
         }
 
         [TestMethod]
-        public void ChangeQuantity_WrongValue()
+        public void EstimateTaxes_WrongCountry()
         {
-            shoppingCartPage.UpdateWrongQuantity(shoppingCartBO);
-            String expectedResult = "Your shopping cart is empty!";
-            Assert.AreEqual(expectedResult, shoppingCartPage.EmptyCartText);
+            shoppingCartPage.EstimateShippingAndTaxes_WrongCountry(shoppingCartBO);
+            String expectedResult = "Please select a country!";
+            Assert.AreEqual(expectedResult, shoppingCartPage.ErrorCountryText);
+        }
+
+        [TestMethod]
+        public void EstimateTaxes_WrongRegion()
+        {
+            shoppingCartPage.EstimateShippingAndTaxes_WrongRegion(shoppingCartBO);
+            String expectedResult = "Please select a region / state!";
+            Assert.AreEqual(expectedResult, shoppingCartPage.ErrorRegionText);
         }
 
         [TestCleanup]
