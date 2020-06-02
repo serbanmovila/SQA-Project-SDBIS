@@ -10,5 +10,7 @@ namespace OpenCartTestingProject.PageObjects.ProductPage.InputData
     class ProductPageBO
     {
         public string ProductName { get; set; } = "Samsung Galaxy Tab 10.1";
+
+        public string Quantity { get; set; } = "2";
     }
 }

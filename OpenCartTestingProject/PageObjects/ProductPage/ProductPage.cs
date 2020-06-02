@@ -14,24 +14,23 @@ namespace OpenCartTestingProject.PageObjects.ProductPage
     {
         private IWebDriver driver;
         private WebDriverWait wait;
-        private ProductPageBO productPageBO;
+        private ProductPageBO productPageBO = new ProductPageBO();
 
         public ProductPage(IWebDriver browser)
         {
             driver = browser;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
         }
 
         private By actionsColumn = By.CssSelector("div.col-sm-4");
         private IList<IWebElement> LstActions => driver.FindElements(actionsColumn);
 
         private By quantity = By.CssSelector("input[name='quantity']");
-        private IWebElement TxtQuantity(ProductPageBO productPageBO) => LstActions
-            .FirstOrDefault(element => element.Text.Contains(productPageBO.ProductName))
-            .FindElement(quantity);
+        private IWebElement TxtQuantity => driver.FindElement(quantity);
 
-        private By successfullyUpdated = By.CssSelector("div.alert-success");
+        private By successfullyUpdated = By.CssSelector("div.alert.alert-success");
         private IWebElement LblSuccessfullyUpdated => driver.FindElement(successfullyUpdated);
+
         public string SuccessfullyUpdatedText => LblSuccessfullyUpdated.Text;
 
         private By tabReview = By.CssSelector("a[href='#tab-review']");
@@ -40,10 +39,8 @@ namespace OpenCartTestingProject.PageObjects.ProductPage
         private By addToWishList = By.CssSelector("button[data-original-title='Add to Wish List']");
         private IWebElement BtnAddToWishList => driver.FindElement(addToWishList);
 
-        private By addToCart = By.CssSelector("div.button-group>button:first-child");
-        private IWebElement BtnAddToCart(ProductPageBO productPageBO) => LstActions
-            .FirstOrDefault(element => element.Text.Contains(productPageBO.ProductName))
-            .FindElement(addToCart);
+        private By addToCart = By.Id("button-cart");
+        private IWebElement BtnAddToCart => driver.FindElement(addToCart);
 
         private By wishListLabel = By.Id("wishlist-total");
         private IWebElement LblWishLabel => driver.FindElement(wishListLabel);
@@ -53,7 +50,9 @@ namespace OpenCartTestingProject.PageObjects.ProductPage
         public void AddToCart()
         {
             wait.Until(ExpectedConditions.ElementIsVisible(addToCart));
-            BtnAddToCart(productPageBO).Click();
+            TxtQuantity.SendKeys(productPageBO.Quantity);
+            BtnAddToCart.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(successfullyUpdated));
         }
 
         public void AddToWishList()
@@ -62,10 +61,12 @@ namespace OpenCartTestingProject.PageObjects.ProductPage
             BtnAddToWishList.Click();
         }
 
-        public void OpenReviewTab()
+        public AddProductReview.AddProductNewReview OpenReviewTab(IWebDriver driver)
         {
             wait.Until(ExpectedConditions.ElementIsVisible(tabReview));
             BtnTabReview.Click();
+
+            return new AddProductReview.AddProductNewReview(driver); 
         }
     }
 }

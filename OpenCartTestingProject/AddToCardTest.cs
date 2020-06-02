@@ -23,9 +23,7 @@ namespace OpenCartTestingProject
         private HomePage homePage;
         private ProductListPage productListPage;
         private ProductPage productPage;
-        private AddProductNewReview AddProductNewReview;
-        private ProductPageBO productPageBO;
-        private AddProductNewReviewBO addProductNewReviewBO;
+        private ProductPageBO productPageBO = new ProductPageBO();
 
         [TestInitialize]
         public void TestInitialize()
@@ -35,24 +33,23 @@ namespace OpenCartTestingProject
             driver.Navigate().GoToUrl("http://opencart.abstracta.us/");
             homePage = new HomePage(driver);
             productListPage = homePage.NavigateToTabletsProductList(driver);
+            productPage = productListPage.NavigateToProductPage(driver);
         }
 
         [TestMethod]
         public void AddToCard()
         {
-            productListPage.OpenProductPage();
-            productPage.OpenReviewTab();
-            AddProductNewReview.CreateReview(addProductNewReviewBO);
-
-            String expectedResult = " Thank you for your review. It has been submitted to the webmaster for approval.";
-
+            productPage.AddToCart();
+           
+            String expectedResult = "Success: You have added " + productPageBO.ProductName + " to your shopping cart!\r\n×";
+           
             Assert.AreEqual(expectedResult, productPage.SuccessfullyUpdatedText);
         }
 
-        // [TestCleanup]
-        // public void Cleanup()
-        // {
-        //    driver.Quit();
-        //}
+         [TestCleanup]
+         public void Cleanup()
+        {
+            driver.Quit();
+        }
     }
 }

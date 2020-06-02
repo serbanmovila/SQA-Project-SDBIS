@@ -14,7 +14,6 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
 {
     class ProductListPage
     {
-        //clasa pentru pagina cu lista de produse
         private IWebDriver driver;
         private WebDriverWait wait;
 
@@ -40,9 +39,12 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
         {
             BtnAddToCart(shoppingCartBO).Click();
         }
-        public void OpenProductPage()
+
+        public ProductPage.ProductPage NavigateToProductPage(IWebDriver driver)
         { 
             BtnOpenProductPage().Click();
+
+            return new ProductPage.ProductPage(driver);
         }
     }
 }
