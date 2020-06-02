@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 
@@ -59,6 +60,7 @@ namespace OpenCartTestingProject.PageObjects.ProductPage
         {
             wait.Until(ExpectedConditions.ElementIsVisible(addToWishList));
             BtnAddToWishList.Click();
+            Thread.Sleep(1000);
         }
 
         public AddProductReview.AddProductNewReview OpenReviewTab(IWebDriver driver)
