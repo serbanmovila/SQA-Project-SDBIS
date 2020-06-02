@@ -40,9 +40,7 @@ namespace OpenCartTestingProject
         public void AddToCard()
         {
             productPage.AddToCart();
-           
             String expectedResult = "Success: You have added " + productPageBO.ProductName + " to your shopping cart!\r\n×";
-           
             Assert.AreEqual(expectedResult, productPage.SuccessfullyUpdatedText);
         }
 

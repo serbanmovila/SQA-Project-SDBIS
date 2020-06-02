@@ -13,7 +13,6 @@ namespace OpenCartTestingProject
     [TestClass]
     public class AddProductToCartTest
     {
-        //nu functioneaza inca 
         private IWebDriver driver;
         private MenuItemControl menuItem;
         private HomePage homePage;
@@ -30,7 +29,6 @@ namespace OpenCartTestingProject
             homePage = new HomePage(driver);
             productListPage = homePage.NavigateToTabletsProductList(driver);
             menuItem = new MenuItemControl(driver);
-
         }
 
 

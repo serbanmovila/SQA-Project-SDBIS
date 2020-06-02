@@ -46,5 +46,6 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
 
             return new ProductPage.ProductPage(driver);
         }
+
     }
 }

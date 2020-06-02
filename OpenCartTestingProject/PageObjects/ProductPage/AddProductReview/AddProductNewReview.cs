@@ -46,7 +46,6 @@ namespace OpenCartTestingProject.PageObjects.ProductPage.AddProductReview
 
         public string ErrorUpdatedText => LblErrorUpdated.Text;
 
-
         public void CreateReviewSuccess(AddProductNewReviewBO addReviewBo)
         {
             wait.Until(ExpectedConditions.ElementIsVisible(name));

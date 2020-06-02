@@ -36,9 +36,7 @@ namespace OpenCartTestingProject
         public void AddToWishList()
         {            
             productPage.AddToWishList();
-
             String expectedResult = "Wish List (1)";
-
             Assert.AreEqual(expectedResult, productPage.SuccessfullyAddToWishList);
         }
 

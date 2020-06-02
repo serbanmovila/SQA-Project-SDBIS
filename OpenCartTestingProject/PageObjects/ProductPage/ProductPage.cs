@@ -16,7 +16,6 @@ namespace OpenCartTestingProject.PageObjects.ProductPage
         private IWebDriver driver;
         private WebDriverWait wait;
         private ProductPageBO productPageBO = new ProductPageBO();
-
         public ProductPage(IWebDriver browser)
         {
             driver = browser;

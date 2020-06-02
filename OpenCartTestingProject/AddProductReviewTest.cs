@@ -40,9 +40,7 @@ namespace OpenCartTestingProject
         public void AddReviewSuccessfully()
         {
             AddProductNewReview.CreateReviewSuccess( addProductNewReviewBO);
-           
             String expectedResult = "Thank you for your review. It has been submitted to the webmaster for approval.";
-
             Assert.AreEqual(expectedResult, AddProductNewReview.SuccessfullyUpdated);
         }
 
