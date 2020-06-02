@@ -42,11 +42,10 @@ namespace OpenCartTestingProject
             Assert.AreEqual(expectedResult, productPage.SuccessfullyAddToWishList);
         }
 
-
-        // [TestCleanup]
-        // public void Cleanup()
-        // {
-        //    driver.Quit();
-        //}
+        [TestCleanup]
+        public void Cleanup()
+        {
+            driver.Quit();
+        }
     }
 }

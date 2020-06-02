@@ -16,6 +16,7 @@ namespace OpenCartTestingProject.PageObjects.ProductPage.AddProductReview
         private IWebDriver driver;
         private WebDriverWait wait;
 
+
         public AddProductNewReview(IWebDriver browser)
         {
             driver = browser;
@@ -35,15 +36,37 @@ namespace OpenCartTestingProject.PageObjects.ProductPage.AddProductReview
         private By createReview = By.Id("button-review");
         private IWebElement BtnCreateReview => driver.FindElement(createReview);
 
+        private By successfullyUpdated = By.CssSelector("div.alert.alert-success");
+        private IWebElement LblSuccessfullyUpdated => driver.FindElement(successfullyUpdated);
 
-        public void CreateReview(AddProductNewReviewBO addReviewBo)
+        public string SuccessfullyUpdated => LblSuccessfullyUpdated.Text;
+
+        private By errorUpdate = By.CssSelector("div.alert.alert-danger");
+        private IWebElement LblErrorUpdated => driver.FindElement(errorUpdate);
+
+        public string ErrorUpdatedText => LblErrorUpdated.Text;
+
+
+        public void CreateReviewSuccess(AddProductNewReviewBO addReviewBo)
         {
             wait.Until(ExpectedConditions.ElementIsVisible(name));
             TxtName.SendKeys(addReviewBo.Name);
-            TxtReview.SendKeys(addReviewBo.Review);
+            TxtReview.SendKeys(addReviewBo.ReviewSuccess);
             LstRating[addReviewBo.Rating].Click();
             
             BtnCreateReview.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(successfullyUpdated));
+        }
+
+        public void CreateReviewWithError(AddProductNewReviewBO addReviewBo)
+        {
+            wait.Until(ExpectedConditions.ElementIsVisible(name));
+            TxtName.SendKeys(addReviewBo.Name);
+            TxtReview.SendKeys(addReviewBo.ReviewError);
+            LstRating[addReviewBo.Rating].Click();
+
+            BtnCreateReview.Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(errorUpdate));
         }
     }
 }

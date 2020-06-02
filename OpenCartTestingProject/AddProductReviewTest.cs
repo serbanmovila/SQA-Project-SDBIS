@@ -37,19 +37,29 @@ namespace OpenCartTestingProject
         }
 
         [TestMethod]
-        public void AddReview()
+        public void AddReviewSuccessfully()
         {
-            AddProductNewReview.CreateReview( addProductNewReviewBO);
+            AddProductNewReview.CreateReviewSuccess( addProductNewReviewBO);
            
-            String expectedResult = " Thank you for your review. It has been submitted to the webmaster for approval.";
+            String expectedResult = "Thank you for your review. It has been submitted to the webmaster for approval.";
 
-           Assert.AreEqual(expectedResult, productPage.SuccessfullyUpdatedText);
+            Assert.AreEqual(expectedResult, AddProductNewReview.SuccessfullyUpdated);
         }
 
-       // [TestCleanup]
-       // public void Cleanup()
-       // {
-        //    driver.Quit();
-        //}
+        [TestMethod]
+        public void AddReviewWithError()
+        {
+            AddProductNewReview.CreateReviewWithError(addProductNewReviewBO);
+
+            String expectedResult = "Warning: Review Text must be between 25 and 1000 characters!";
+
+            Assert.AreEqual(expectedResult, AddProductNewReview.ErrorUpdatedText);
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            driver.Quit();
+        }
     }
 }
