@@ -59,10 +59,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddProductReviewTest.cs" />
+    <Compile Include="AddProductToWishList.cs" />
     <Compile Include="Controls\MenuItemControl.cs" />
     <Compile Include="AddProductToCartTest.cs" />
     <Compile Include="PageObjects\HomePage\HomePage.cs" />
     <Compile Include="PageObjects\ProductListPage\ProductListPage.cs" />
+    <Compile Include="PageObjects\ProductPage\AddProductReview\AddProductNewReview.cs" />
+    <Compile Include="PageObjects\ProductPage\AddProductReview\InputData\AddProductNewReviewBO.cs" />
+    <Compile Include="PageObjects\ProductPage\InputData\ProductPageBO.cs" />
+    <Compile Include="PageObjects\ProductPage\ProductPage.cs" />
     <Compile Include="PageObjects\ShoppingCartPage\InputData\ShoppingCartBO.cs" />
     <Compile Include="PageObjects\ShoppingCartPage\ShoppingCartPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

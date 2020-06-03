@@ -36,6 +36,9 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
         private By successfullyAdded = By.CssSelector("div.alert-success");
         private IWebElement LblSuccessfullyAdded => driver.FindElement(successfullyAdded);
         public string SuccessfullyAddedText => LblSuccessfullyAdded.Text;
+        private By openProductPage = By.CssSelector("div.caption>h4>a");
+        private IWebElement BtnOpenProductPage() => driver.FindElement(openProductPage);
+
 
         public void AddToCartFirstProduct(ShoppingCartBO shoppingCartBO)
         {
@@ -43,6 +46,11 @@ namespace OpenCartTestingProject.PageObjects.ProductListPage
             wait.Until(ExpectedConditions.ElementIsVisible(successfullyAdded));
             Thread.Sleep(1000);
         }
+        public ProductPage.ProductPage NavigateToProductPage(IWebDriver driver)
+        {
+            BtnOpenProductPage().Click();
 
+            return new ProductPage.ProductPage(driver);
+        }
     }
 }
