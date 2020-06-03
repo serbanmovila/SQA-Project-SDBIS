@@ -1,6 +1,19 @@
 # SQA-Project-SDBIS-SIA
 Automated Testing project @Centric
 
+AddProductToCartTest 
+- presupune testarea adaugarii de produse in cos de pe pagina produselor prin actionarea butonului de 'Add to cart' 
+- adaugarea in cos din pagina de prezentare a produsului prin completarea cantitatii si apoi actionarea butonului 'Add to cart'.
+- in cazut adaugarii in cos din lista de produse a fost utilizat Thread.Sleep pentru a astepta animatia de aparitie a mesajului de alerta.
+
+AddToProductReviewTest 
+presupune testarea a doua scenarii prin cele doua metode de test:
+  - adaugarea cu succes a unui review,
+  - eroare la adaugarea unui review. Eroarea apare atunci cand textul review-ului are maiputin de 25 de caractere.
+
+AddToWishList
+presupune testarea scenariului in care se actioneaza butonul de 'Add to wish list' si produsul est adaugat in Wish List.
+
 Change quantity of ordered products: 
 - In cosul de cumparaturi este disponibila modificarea cantitatii comandate astfel ca au fost abordate doua scenarii de test: 
 1 - se introduce o valoare pozitiva; 
@@ -20,14 +33,4 @@ Estimate shipping taxes:
 - Pentru fiecare dintre scenarii s-a creat cate o metoda in clasa dedicata papigii "Shopping cart" pentru a utiliza valori diferite din clasa BO corespunzatoare. 
 - Inainte de selectarea valorii in campul "Region" a for utilizat un obiect wait de tip Implicit pentru a oferi timp ca datele din acest drop down list sa se adapteze la tara selectata anterior.
 
--AddToProductReviewTest 
-presupune testarea a doua scenarii prin cele doua metode de test:
-  - adaugarea cu succes a unui review,
-  - eroare la adaugarea unui review. Eroarea apare atunci cand textul review-ului are maiputin de 25 de caractere.
 
--AddToWishList
-presupune testarea scenariului in care se actioneaza butonul de 'Add to wish list' si produsul est adaugat in Wish List.
-
-AddProductToCartTest 
-- presupune testarea adaugarii de produse in cos de pe pagina produselor prin actionarea butonului de 'Add to cart' 
--adaugarea in cos din pagina de prezentare a produsului prin completarea cantitatii si apoi actionarea butonului 'Add to cart'.
