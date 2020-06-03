@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenCartTestingProject.Controls;
 using OpenCartTestingProject.PageObjects.HomePage;
 using OpenCartTestingProject.PageObjects.ProductListPage;
+using OpenCartTestingProject.PageObjects.ProductPage;
+using OpenCartTestingProject.PageObjects.ProductPage.InputData;
 using OpenCartTestingProject.PageObjects.ShoppingCartPage;
 using OpenCartTestingProject.PageObjects.ShoppingCartPage.InputData;
 using OpenQA.Selenium;
@@ -19,6 +21,8 @@ namespace OpenCartTestingProject
         private ProductListPage productListPage;
         private ShoppingCartPage shoppingCartPage;
         private ShoppingCartBO shoppingCartBO = new ShoppingCartBO();
+        private ProductPage productPage;
+        private ProductPageBO productPageBO = new ProductPageBO();
 
 
         [TestInitialize]
@@ -40,6 +44,17 @@ namespace OpenCartTestingProject
 
             String expectedResult = "Success: You have added " + shoppingCartBO.ProductName + " to your shopping cart!\r\n×";
             Assert.AreEqual(expectedResult, productListPage.SuccessfullyAddedText);
+        }
+
+        [TestMethod]
+        public void AddToCard_FromProductPage()
+        {
+            productPage = productListPage.NavigateToProductPage(driver);
+            productPage.AddToCart();
+
+            String expectedResult = "Success: You have added " + productPageBO.ProductName + " to your shopping cart!\r\n×";
+
+            Assert.AreEqual(expectedResult, productPage.SuccessfullyUpdatedText);
         }
 
         [TestCleanup]
