@@ -1,6 +1,11 @@
 # SQA-Project-SDBIS-SIA
 Automated Testing project @Centric
 
+Echipa:
+Carciuc Oana-Georgiana
+Movila Serban-Costin
+Stepanchevici Vladislava
+
 AddProductToCartTest 
 - presupune testarea adaugarii de produse in cos de pe pagina produselor prin actionarea butonului de 'Add to cart' 
 - adaugarea in cos din pagina de prezentare a produsului prin completarea cantitatii si apoi actionarea butonului 'Add to cart'.
